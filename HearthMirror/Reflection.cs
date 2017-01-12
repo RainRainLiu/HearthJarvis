@@ -406,5 +406,38 @@ namespace HearthMirror
 			}
 			return brawlInfo;
 		}
-	}
+
+
+        public static List<Card> GetFriendHandCards() =>  GetHandCardsInternal(Side.FRIENDLY);
+
+        private static List<Card> GetHandCardsInternal(Side side)
+        {
+            List<Card> cards = new List<Card>();
+            var m_zones = Mirror.Root["ZoneMgr"]["s_instance"]["m_zones"]; //读取zone列表
+
+            foreach (var zone in m_zones)
+            {
+                if (zone?.Class.Name != "Zone") //类不正确
+                {
+                    continue;
+                }
+                if ((Side)zone["m_Side"] == side)  //找到对应的的zone
+                {
+                    var m_cards = zone["m_cards"];
+                    foreach(var card in m_cards)
+                    {
+                        if (card?.Class.Name != "Card") //类不正确
+                        {
+                            continue;
+                        }
+                        string id = card["m_entity"]["m_cardId"];   //卡ID
+                        Card c = new Card(id, 1, true);
+                        cards.Add(c);
+                    }
+                    return cards;
+                }
+            }
+            return null;
+        }
+    }
 }
