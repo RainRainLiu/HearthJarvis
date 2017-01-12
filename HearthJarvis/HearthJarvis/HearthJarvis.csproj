@@ -49,6 +49,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\HearthMirror.Tests\HearthMirror.Tests.csproj">
+      <Project>{df830345-6b31-475e-91ad-38aba18e8f91}</Project>
+      <Name>HearthMirror.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HearthMirror\HearthMirror.csproj">
+      <Project>{1694a2f8-645a-4263-a6ab-fc26323fd675}</Project>
+      <Name>HearthMirror</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
