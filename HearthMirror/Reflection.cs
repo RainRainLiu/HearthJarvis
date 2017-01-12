@@ -414,7 +414,38 @@ namespace HearthMirror
         {
             List<Card> cards = new List<Card>();
             var m_zones = Mirror.Root["ZoneMgr"]["s_instance"]["m_zones"]; //读取zone列表
+            var zones = m_zones["_items"];
+            int size = m_zones["_size"]; 
 
+            //Console.WriteLine(size.ToString());
+
+            for (var i = 3; i < size; i ++)
+            {
+                if (zones[i] == null)
+                {
+                    Console.WriteLine(i.ToString());
+                    //continue;
+                }
+                Console.WriteLine(zones[i]["m_Side"].ToString());
+                if ((Side)zones[i]["m_Side"] == side)
+                {
+                    var m_cards = zones[3]["m_cards"];
+                    var _cards = m_cards["_items"];
+                    int _size = m_cards["_size"];
+                    Console.WriteLine("card" + _size.ToString());
+                    for (var j = 0; j < _size; j++)
+                    {
+                        string name = _cards[j]["m_actorName"];
+                        Console.WriteLine("car name  "+name);
+                        string id =  _cards[j]["m_entity"]["m_entityDef"]["m_cardId"];
+                        Console.WriteLine("car id " + id);
+                        Card c = new Card(id, 1, true);
+                        cards.Add(c);
+                    }
+                    return cards;
+                }
+            }
+            /*
             foreach (var zone in m_zones)
             {
                 if (zone?.Class.Name != "Zone") //类不正确
@@ -437,6 +468,7 @@ namespace HearthMirror
                     return cards;
                 }
             }
+            */
             return null;
         }
     }
