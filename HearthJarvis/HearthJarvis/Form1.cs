@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HearthMirror.Objects;
-using HearthMirror;
+using HearthJarvis;
+using HearthJarvis.Objects;
 
 namespace HearthJarvis
 {
@@ -23,11 +23,24 @@ namespace HearthJarvis
         private void button1_Click(object sender, EventArgs e)
         {
             Console.WriteLine("button click");
-            int i = Reflection.GetNumCardsPlayerHand();
+
+
+            int i = Reflection.GetHistory();
             Console.WriteLine(i.ToString());
-            MatchInfo math = Reflection.GetMatchInfo();
-            Console.WriteLine(math.LocalPlayer.Name);
-            Reflection.GetFriendHandCards();
+            //MatchInfo math = Reflection.GetMatchInfo();
+            //Console.WriteLine(math.LocalPlayer.Name);
+            /*
+            List<Card> cards = Reflection.GetMulliganCards();
+            
+            if (cards != null)
+            {
+                foreach (Card card in cards)
+                {
+                    Console.WriteLine("Card ID  " + card.ID);
+                }
+            }*/
+            Console.WriteLine("button click end");
+
         }
     }
 }
