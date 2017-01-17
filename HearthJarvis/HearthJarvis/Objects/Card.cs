@@ -8,14 +8,14 @@ namespace HearthJarvis.Objects
 {
     public class Card
     {
-        public readonly string cardId;
+        public J_Entity entity;
         public Card(dynamic cardObj)
         {
-            cardId = cardObj["m_entity"]["m_cardId"];   //
+            entity = new J_Entity(cardObj["m_entity"]);
         }
         public string GetCardID()
         {
-            return cardId;
+            return entity.CardId;
         }
     }
 }

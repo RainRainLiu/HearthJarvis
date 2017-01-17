@@ -5,17 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using HSRangerLib;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace HearthJarvis.Objects
 {
     class J_Entity : Entity
     {
-        private string m_cardId;
-
         private int m_realTimeCost = -1;
-
-        private int m_realTimeAttack;
 
         private int m_realTimeHealth;
 
@@ -35,6 +30,15 @@ namespace HearthJarvis.Objects
 
         Hashtable m_tags = new Hashtable();
 
+        public int GetTagValue(GAME_TAG tag)
+        {
+            if (m_tags.Contains(tag))
+            {
+                return (int)m_tags[tag];
+            }
+            return -1;
+        }
+
         public J_Entity(dynamic entityObj)
         {
             base.CardId = entityObj["m_cardId"];
@@ -49,9 +53,16 @@ namespace HearthJarvis.Objects
             var tag = entityObj["m_tags"]["m_values"]["valueSlots"];
             for (int i = 0; i < tagIds.Length; i++)
             {
-                m_tags.Add(tagIds[i], tag[i]);
+                if (tagIds[i] != 0)
+                {
+                    m_tags.Add(tagIds[i], (int)tag[i]);
+                    base.AllTags.Add(new EntityTag(tagIds[i], (int)tag[i]));
+                }
             }
-            base.Armor = (int)m_tags[GAME_TAG.ATK];
+
+            base.Armor = GetTagValue(GAME_TAG.ARMOR);
+            base.ATK = GetTagValue(GAME_TAG.ATK);
+            
 
 
 
@@ -63,50 +74,6 @@ namespace HearthJarvis.Objects
             m_duplicateForHistory = entityObj["m_duplicateForHistory"];
 
             m_realTimePoweredUp = entityObj["m_realTimePoweredUp"];
-        }
-        /// <summary>
-        /// 获取剩余的血量
-        /// </summary>
-        /// <returns></returns>hp
-        public int GetRealTimeRemainingHP()
-        {
-            return this.m_realTimeHealth + this.m_realTimeArmor - this.m_realTimeDamage;
-        }
-        /// <summary>
-        /// 实时的攻击力
-        /// </summary>
-        /// <returns></returns>
-        public int GetRealTimeAttack()
-        {
-            return this.m_realTimeAttack;
-        }
-        /// <summary>
-        /// 获取费用
-        /// </summary>
-        /// <returns></returns>
-        public int GetRealTimeCost()
-        {
-            if (this.m_realTimeCost == -1)
-            {
-                return (int)GAME_TAG.COST;
-            }
-            return this.m_realTimeCost;
-        }
-        /// <summary>
-        /// 启动？
-        /// </summary>
-        /// <returns></returns>
-        public bool GetRealTimePoweredUp()
-        {
-            return this.m_realTimePoweredUp;
-        }
-        /// <summary>
-        /// 圣盾
-        /// </summary>
-        /// <returns></returns>
-        public bool GetRealTimeDivineShield()
-        {
-            return this.m_realTimeDivineShield;
         }
 
 

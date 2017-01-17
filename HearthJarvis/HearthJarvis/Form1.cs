@@ -25,20 +25,20 @@ namespace HearthJarvis
             Console.WriteLine("button click");
 
 
-            int i = Reflection.GetHistory();
-            Console.WriteLine(i.ToString());
+            //int i = Reflection.GetHistory();
+            //Console.WriteLine(i.ToString());
             //MatchInfo math = Reflection.GetMatchInfo();
             //Console.WriteLine(math.LocalPlayer.Name);
-            /*
+            
             List<Card> cards = Reflection.GetMulliganCards();
             
             if (cards != null)
             {
                 foreach (Card card in cards)
                 {
-                    Console.WriteLine("Card ID  " + card.ID);
+                    Console.WriteLine("Card ID  " + card.cardId);
                 }
-            }*/
+            }
             Console.WriteLine("button click end");
 
         }

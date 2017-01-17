@@ -133,7 +133,7 @@ namespace HearthJarvis
                 //int count = card["m_count"];
                 //for (int j = 0; j < count; j++)
                 {
-                    Card cc = new Card(cardId);
+                    Card cc = new Card(card);
                     c.Add(cc);
                 }
             }
