@@ -566,7 +566,7 @@ namespace HREngine.Bots
                 {
                     if (Settings.Instance.printlearnmode)
                     {
-                        Ai.Instance.simmulateWholeTurnandPrint();
+                        Ai.Instance.simmulateWholeTurnandPrint();   //完全模拟打印
                     }
                     Settings.Instance.printlearnmode = false;
 
@@ -1653,6 +1653,7 @@ namespace HREngine.Bots
 
 
             //load enchantments of the heros
+            //负载附魔的英雄
             List<miniEnch> miniEnchlist = new List<miniEnch>();
             foreach (Entity ent in allEntitys.Values)
             {

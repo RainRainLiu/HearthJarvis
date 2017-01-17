@@ -34,7 +34,8 @@ namespace HearthJarvis
 
 
 
-
+        //获取自己的手牌
+        //返回 牌列表
         public static List<Card> GetFriendHandCards() =>  GetHandCardsInternal(Player.Side.FRIENDLY, "ZoneHand");
 
         private static List<Card> GetHandCardsInternal(Player.Side side, string zoneName)
@@ -68,6 +69,7 @@ namespace HearthJarvis
             }
             return null;
         }
+        //获取套牌列表
         public static List<Deck> GetDecks() => TryGetInternal(() => InternalGetDecks().ToList());
 
         private static IEnumerable<Deck> InternalGetDecks()
@@ -115,6 +117,7 @@ namespace HearthJarvis
             return deck;
         }
 
+        //获取选牌，就是开场时的选择手牌
         public static List<Card> GetMulliganCards()
         {
             List<Card> c = new List<Card>();

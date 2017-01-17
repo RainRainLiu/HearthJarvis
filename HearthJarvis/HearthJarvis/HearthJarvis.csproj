@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HSRangerLib">
-      <HintPath>..\..\..\Silverfish\HR\HR\HR\bin\Debug\HSRangerLib.dll</HintPath>
+      <HintPath>..\Hearthstone\HSRangerLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,6 +67,8 @@
     <Compile Include="Mono\MonoTypeEnum.cs" />
     <Compile Include="Objects\Card.cs" />
     <Compile Include="Objects\Deck.cs" />
+    <Compile Include="Objects\Entity.cs" />
+    <Compile Include="Objects\GAME_TAG.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
