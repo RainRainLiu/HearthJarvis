@@ -3,30 +3,30 @@
     using System;
     using System.Collections.Generic;
 
-    public struct triggerCounter
+    public struct triggerCounter //触发次数
     {
-        public int minionsGotHealed;
-        public int ownMinionsGotHealed;
+        public int minionsGotHealed;    //随从得到治疗
+        public int ownMinionsGotHealed; //自己的随从得到治疗
 
         public int charsGotHealed;
         public int owncharsGotHealed;
 
-        public int ownMinionsGotDmg;
+        public int ownMinionsGotDmg;    //受到伤害
         public int enemyMinionsGotDmg;
 
-        public int ownHeroGotDmg;
+        public int ownHeroGotDmg;   //英雄受到伤害
         public int enemyHeroGotDmg;
 
-        public int ownMinionsDied;
-        public int enemyMinionsDied;
-        public int ownBeastDied;
+        public int ownMinionsDied;  //随从死了
+        public int enemyMinionsDied;   
+        public int ownBeastDied;    //野兽死了
         public int enemyBeastDied;
-        public int ownMechanicDied;
+        public int ownMechanicDied; //机械死了
         public int enemyMechanicDied;
-        public int ownMurlocDied;
+        public int ownMurlocDied;       //鱼人死了
         public int enemyMurlocDied;
 
-        public bool ownMinionsChanged;
+        public bool ownMinionsChanged; //随从改变
         public bool enemyMininsChanged;
     }
 
@@ -43,29 +43,30 @@
 
         public bool isServer = false;
         public static Random randomGeneratorInstance = new Random();//speedup thanxs to xytrix
-        public Random randomGenerator = null;  // local reference to prevent changing all code locations
+        public Random randomGenerator = null;  // 本地引用,以防止改变所有代码的位置
+
 
         //dont have to be copied! (server doesnt copy)
-        public List<Handmanager.Handcard> myDeck ;
-        public List<Handmanager.Handcard> enemyDeck ;
-        public List<Handmanager.Handcard> EnemyCards ;
-        public List<CardDB.cardIDEnum> EnemySecretsIDList ;
+        public List<Handmanager.Handcard> myDeck ;  //我的牌
+        public List<Handmanager.Handcard> enemyDeck ;   //敌人
+        public List<Handmanager.Handcard> EnemyCards ; //敌人的牌
+        public List<CardDB.cardIDEnum> EnemySecretsIDList ; //敌人的奥秘
         //------------
 
         public int nextEntity = 70;
 
-        public triggerCounter tempTrigger = new triggerCounter();
+        public triggerCounter tempTrigger = new triggerCounter();   //触发计次
 
         //Entity=PLAYER tag=HEROPOWER_ACTIVATIONS_THIS_TURN
         //Entity=PLAYER tag=NUM_TIMES_HERO_POWER_USED_THIS_GAME
 
-        //aura minions##########################
+        //aura minions##########################光环随从
         //todo reduce buffing vars
-        public int anzOwnRaidleader = 0;
+        public int anzOwnRaidleader = 0;    //团队领袖
         public int anzEnemyRaidleader = 0;
-        public int anzOwnStormwindChamps = 0;
+        public int anzOwnStormwindChamps = 0;   //暴风城冠军
         public int anzEnemyStormwindChamps = 0;
-        public int anzOwnTundrarhino = 0;
+        public int anzOwnTundrarhino = 0;       //白犀牛，野兽获得冲锋
         public int anzEnemyTundrarhino = 0;
         public int anzOwnTimberWolfs = 0;
         public int anzEnemyTimberWolfs = 0;
@@ -266,7 +267,11 @@
         public CardDB.cardIDEnum revivingEnemyMinion = CardDB.cardIDEnum.None;
 
         //Helpfunctions help = Helpfunctions.Instance;
-
+        /// <summary>
+        /// 增加随从
+        /// </summary>
+        /// <param name="source"></param>增加的随从
+        /// <param name="trgt"></param>目标
         private void addMinionsReal(List<Minion> source, List<Minion> trgt)
         {
             foreach (Minion m in source)
@@ -275,7 +280,10 @@
             }
 
         }
-
+        /// <summary>
+        /// 增加手牌
+        /// </summary>
+        /// <param name="source"></param>
         private void addCardsReal(List<Handmanager.Handcard> source)
         {
 
@@ -869,7 +877,9 @@
             this.tempanzEnemyCards = this.enemyAnzCards;
 
         }
-
+        /// <summary>
+        /// 更换敌我双方的所有
+        /// </summary>
         public void swapAll()
         {
             ////copied form dfreelan (thx :D)
@@ -1032,7 +1042,12 @@
             obj1 = obj2;
             obj2 = temp;
         }
-        
+        /// <summary>
+        /// 设置牌库和手牌
+        /// </summary>
+        /// <param name="ownDeck"></param>
+        /// <param name="oppDeck"></param>
+        /// <param name="oppCards"></param>
         public void setDecksAndHands(List<Handmanager.Handcard> ownDeck, List<Handmanager.Handcard> oppDeck, List<Handmanager.Handcard> oppCards)
         {
             this.myDeck = new List<Handmanager.Handcard>(ownDeck);
@@ -1348,7 +1363,15 @@
                 }
             }
         }
-
+        /// <summary>
+        /// 地方出牌
+        /// </summary>
+        /// <param name="enemyHeroNamee"></param>地方英雄名字
+        /// <param name="currmana"></param>当前费用
+        /// <param name="cardcount"></param>卡牌数量
+        /// <param name="playAroundProb"></param>概率
+        /// <param name="pap2"></param>
+        /// <returns></returns>
         public int EnemyCardPlaying(HeroEnum enemyHeroNamee, int currmana, int cardcount, int playAroundProb, int pap2)
         {
             int mana = currmana;

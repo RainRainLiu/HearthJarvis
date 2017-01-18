@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class EnemyTurnSimulator
+    public class EnemyTurnSimulator //敌人回合模拟
     {
 
         public int thread = 0;

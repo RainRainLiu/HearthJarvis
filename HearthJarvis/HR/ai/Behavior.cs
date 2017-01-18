@@ -1,7 +1,7 @@
 ﻿namespace HREngine.Bots
 {
 
-    public abstract class Behavior
+    public abstract class Behavior  //计算场面分值
     {
         public virtual float getPlayfieldValue(Playfield p)
         {

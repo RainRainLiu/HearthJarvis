@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HearthJarvis.Objects;
-
+using Jarvis;
+using System.Collections;
 namespace HearthJarvis
 {
 	public class Reflection
@@ -31,8 +32,6 @@ namespace HearthJarvis
 				}
 			}
 		}
-
-
 
         //获取自己的手牌
         //返回 牌列表
@@ -149,6 +148,56 @@ namespace HearthJarvis
 
             int size = TileEntry["_size"];
             return size;
+        }
+        
+
+        static int GetTagValue(Hashtable ht, GAME_TAG tag)
+        {
+            if (ht.Contains(tag))
+            {
+                return (int)ht[tag];
+            }
+            return -1;
+        }
+        public static Card GetCard(dynamic entityObj)
+        {
+            Card card = new Card();
+            Hashtable m_tags = new Hashtable();
+
+            card.CardId = entityObj["m_cardId"];
+            card.RealTimeCost = entityObj["m_realTimeCost"];
+            card.RealTimeAttack = entityObj["m_realTimeAttack"];
+            card.RealTimeHealth = entityObj["m_realTimeHealth"];
+            card.RealTimeDamage = entityObj["m_realTimeDamage"];
+            card.RealTimeArmor = entityObj["m_realTimeArmor"];
+            card.RemainingHP = card.RealTimeHealth + card.RealTimeArmor - card.RealTimeDamage;
+
+            var tagIds = entityObj["m_tags"]["m_values"]["keySlots"];
+            var tag = entityObj["m_tags"]["m_values"]["valueSlots"];
+            for (int i = 0; i < tagIds.Length; i++)
+            {
+                if (tagIds[i] != 0)
+                {
+                    m_tags.Add(tagIds[i], (int)tag[i]);
+                }
+            }
+
+            card.Armor = GetTagValue(m_tags, GAME_TAG.ARMOR);
+            card.ATK = GetTagValue(m_tags, GAME_TAG.ATK);
+            card.Cost = GetTagValue(m_tags, GAME_TAG.COST);
+            card.Health = GetTagValue(m_tags, GAME_TAG.HEALTH);
+
+
+
+
+            m_realTimeDivineShield = entityObj["m_realTimeDivineShield"];
+            m_cardAssetLoadCount = entityObj["m_cardAssetLoadCount"];
+            m_useBattlecryPower = entityObj["m_useBattlecryPower"];
+            m_duplicateForHistory = entityObj["m_duplicateForHistory"];
+
+            m_realTimePoweredUp = entityObj["m_realTimePoweredUp"];
+
+            return card;
         }
 
         //public static int GetNavigationHistorySize() => TryGetInternal(() => Mirror.Root["Navigation"]?["history"]?["_size"]) ?? 0;

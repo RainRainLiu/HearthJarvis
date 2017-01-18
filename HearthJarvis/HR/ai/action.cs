@@ -12,13 +12,13 @@ namespace HREngine.Bots
 {
     using System;
 
-    public enum actionEnum
+    public enum actionEnum  //动作类型
     {
-        endturn = 0,
-        playcard,
-        attackWithHero,
-        useHeroPower,
-        attackWithMinion
+        endturn = 0,    //结束回合
+        playcard,       //出牌
+        attackWithHero, //攻击英雄
+        useHeroPower,   //使用英雄技能
+        attackWithMinion    //攻击随从
     }
     //todo make to struct
 
@@ -28,13 +28,24 @@ namespace HREngine.Bots
         public actionEnum actionType;
         public Handmanager.Handcard card;
         //public int cardEntitiy;
-        public int place; //= target where card/minion is placed
-        public Minion own;
-        public Minion target;
-        public int druidchoice; // 1 left card, 2 right card
+        public int place; //目标看/随从放置的地方
+        public Minion own; //自己的随从
+        public Minion target;   //目标随从
+        public int druidchoice; //德鲁伊的抉择  1 left card, 2 right card
         public int tracking=0; // 1= leftmost card
-        public int penalty;
+        public int penalty; //处罚
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="type"></param>行动了偶像
+        /// <param name="hc"></param>手牌
+        /// <param name="ownCardEntity"></param>自己的卡
+        /// <param name="place"></param>放置的地方
+        /// <param name="target"></param>目标
+        /// <param name="pen"></param>惩罚
+        /// <param name="choice"></param>抉择
+        /// <param name="track"></param>追踪
         public Action(actionEnum type, Handmanager.Handcard hc, Minion ownCardEntity, int place, Minion target, int pen, int choice, int track = 0)
         {
             this.actionType = type;
@@ -47,7 +58,11 @@ namespace HREngine.Bots
             this.tracking = track;
 
         }
-
+        /// <summary>
+        /// 构造函数，传进来字符串，用于模拟对战
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="p"></param>
         public Action(string s, Playfield p)
         {
             if (s.StartsWith("play "))

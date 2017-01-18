@@ -2,18 +2,18 @@
 {
     using System.Collections.Generic;
 
-    public class Handmanager
+    public class Handmanager //手牌管理
     {
 
-        public class Handcard
+        public class Handcard   
         {
-            public int position = 0;
+            public int position = 0; //位置
             public int entity = -1;
-            public int manacost = 1000;
-            public int addattack = 0;
-            public int addHp = 0;
-            public bool isChoiceTemp = false;
-            public CardDB.Card card;
+            public int manacost = 1000; //神力费用?
+            public int addattack = 0;   //增加攻击
+            public int addHp = 0;       //增加血量
+            public bool isChoiceTemp = false; //抉择
+            public CardDB.Card card;    //卡牌
 
             public Handcard()
             {
